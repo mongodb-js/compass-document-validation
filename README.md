@@ -2,10 +2,6 @@
 
 > Compass Document Validation Plugin
 
-## License
-
-Apache 2
-
 ## Features
 
 #### Storybook
