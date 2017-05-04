@@ -6,8 +6,6 @@
 
 Apache 2
 
-===
-
 ## Features
 
 #### Storybook
