@@ -48,7 +48,7 @@ For completeness, below is a list of directories present in this module:
 
 Apache 2.0
 
-[travis_img]: https://img.shields.io/travis/10gen/compass-document-validation.svg?style=flat-square
+[travis_img]: https://travis-ci.com/10gen/compass-document-validation.svg?token=ezEB2TnpPiu7XLo6ByZp&branch=master
 [travis_url]: https://travis-ci.com/10gen/compass-document-validation
 [react-storybook]: https://github.com/kadirahq/react-storybook
 [enzyme]: http://airbnb.io/enzyme/
