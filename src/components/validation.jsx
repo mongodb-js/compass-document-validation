@@ -1,4 +1,3 @@
-const app = require('hadron-app');
 const { StatusRow } = require('hadron-react-components');
 const React = require('react');
 const PropTypes = require('prop-types');
@@ -19,7 +18,7 @@ class Validation extends React.Component {
 
   constructor(props) {
     super(props);
-    this.CollectionStore = app.appRegistry.getStore('App.CollectionStore');
+    this.CollectionStore = global.hadronApp.appRegistry.getStore('App.CollectionStore');
   }
 
   /**

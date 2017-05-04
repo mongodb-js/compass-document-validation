@@ -1,5 +1,5 @@
 {
-  "name": "compass-document-validation",
+  "name": "@mongodb-js/compass-document-validation",
   "productName": "Compass Document Validation",
   "version": "0.0.0",
   "description": "Compass Document Validation Plugin",
