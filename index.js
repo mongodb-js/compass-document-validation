@@ -15,7 +15,7 @@ const ROLE = {
 /**
  * Activate all the components in the Compass Document Validation package.
  */
-function activate() {
+function activate(appRegistry) {
   // Register the ValidationComponent as a collection tab Role in Compass
   //
   // Note that available roles are:
@@ -24,9 +24,9 @@ function activate() {
   //   - Database.Tab
   //   - Instance.Tab
   //
-  global.hadronApp.appRegistry.registerRole('Collection.Tab', ROLE);
-  global.hadronApp.appRegistry.registerAction('Validation.Actions', ValidationActions);
-  global.hadronApp.appRegistry.registerStore('Validation.Store', ValidationStore);
+  appRegistry.registerRole('Collection.Tab', ROLE);
+  appRegistry.registerAction('Validation.Actions', ValidationActions);
+  appRegistry.registerStore('Validation.Store', ValidationStore);
 }
 
 /**
