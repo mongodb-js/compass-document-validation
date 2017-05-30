@@ -18,7 +18,27 @@ class Validation extends React.Component {
 
   constructor(props) {
     super(props);
-    this.CollectionStore = global.hadronApp.appRegistry.getStore('App.CollectionStore');
+    const appRegistry = global.hadronApp.appRegistry;
+    this.DeploymentStateStore = appRegistry.getStore('DeploymentAwareness.DeploymentStateStore');
+    this.CollectionStore = appRegistry.getStore('App.CollectionStore');
+    this.state = this.DeploymentStateStore.state;
+  }
+
+  componentDidMount() {
+    this.unsubscribeStateStore = this.DeploymentStateStore.listen(this.deploymentStateChanged.bind(this));
+  }
+
+  componentWillUnmount() {
+    this.unsubscribeStateStore();
+  }
+
+  /**
+   * Called when the deployment state changes.
+   *
+   * @param {Object} state - The deployment state.
+   */
+  deploymentStateChanged(state) {
+    this.setState(state);
   }
 
   /**
@@ -45,7 +65,7 @@ class Validation extends React.Component {
             validationLevel={this.props.validationLevel}
             editState={this.props.editState}
             serverVersion={this.props.serverVersion}
-            isWritable={this.CollectionStore.isWritable()}
+            isWritable={!this.CollectionStore.isReadonly() && this.state.isWritable}
           />
         </div>
       ) : (
@@ -54,7 +74,7 @@ class Validation extends React.Component {
           validationAction={this.props.validationAction}
           validationLevel={this.props.validationLevel}
           editState={this.props.editState}
-          isWritable={this.CollectionStore.isWritable()}
+          isWritable={!this.CollectionStore.isReadonly() && this.state.isWritable}
         />
       );
 
