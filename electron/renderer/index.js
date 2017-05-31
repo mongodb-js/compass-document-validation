@@ -12,7 +12,7 @@ const ValidationComponent = require('../../lib/components');
 const ValidationStore = require('../../lib/stores');
 const ValidationActions = require('../../lib/actions');
 const CollectionStore = require('./stores/collection-store');
-const DeploymentStateStore = require('./stores/deployment-state-store');
+const WriteStateStore = require('./stores/write-state-store');
 
 const CONNECTION = new Connection({
   hostname: '127.0.0.1',
@@ -25,7 +25,7 @@ global.hadronApp = app;
 global.hadronApp.instance = { build: { version: '3.4.0' }};
 global.hadronApp.appRegistry = new AppRegistry();
 global.hadronApp.appRegistry.registerStore('App.CollectionStore', CollectionStore);
-global.hadronApp.appRegistry.registerStore('DeploymentAwareness.DeploymentStateStore', DeploymentStateStore);
+global.hadronApp.appRegistry.registerStore('DeploymentAwareness.WriteStateStore', WriteStateStore);
 global.hadronApp.appRegistry.registerStore('Validation.Store', ValidationStore);
 global.hadronApp.appRegistry.registerAction('Validation.Actions', ValidationActions);
 

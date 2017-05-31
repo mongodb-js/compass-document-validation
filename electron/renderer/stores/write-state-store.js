@@ -9,7 +9,7 @@ const DEFAULT_DESCRIPTION = 'Topology type not yet discovered.';
 /**
  * Deployment State store.
  */
-const DeploymentStateStore = Reflux.createStore({
+const WriteStateStore = Reflux.createStore({
   /**
    * adds a state to the store, similar to React.Component's state
    * @see https://github.com/yonatanmn/Super-Simple-Flux#reflux-state-mixin
@@ -33,4 +33,4 @@ const DeploymentStateStore = Reflux.createStore({
   }
 });
 
-module.exports = DeploymentStateStore;
+module.exports = WriteStateStore;
