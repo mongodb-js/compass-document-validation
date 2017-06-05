@@ -6,11 +6,11 @@ const ValidationStore = require('./lib/stores');
  * A sample role for the component.
  */
 const ROLE = {
-  name: "VALIDATION",
+  name: 'VALIDATION',
   component: ValidationComponent,
   order: 5,
   minimumServerVersion: '3.2.0-rc0'
-}
+};
 
 /**
  * Activate all the components in the Compass Document Validation package.
