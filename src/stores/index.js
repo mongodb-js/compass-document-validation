@@ -30,7 +30,10 @@ const ValidationStore = Reflux.createStore({
    */
   init() {
     this.lastFetchedValidatorDoc = {};
-    this.NamespaceStore = app.appRegistry.getStore('App.NamespaceStore');
+  },
+
+  onActivated(appRegistry) {
+    this.NamespaceStore = appRegistry.getStore('App.NamespaceStore');
   },
 
   onCollectionChanged(ns) {
