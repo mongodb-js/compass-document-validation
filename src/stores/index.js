@@ -7,9 +7,6 @@ const helper = require('./helpers');
 const toNS = require('mongodb-ns');
 const app = require('hadron-app');
 
-// stores
-const NamespaceStore = require('hadron-reflux-store').NamespaceStore;
-
 const debug = require('debug')('mongodb-compass:stores:validation');
 
 /**
@@ -33,11 +30,16 @@ const ValidationStore = Reflux.createStore({
    */
   init() {
     this.lastFetchedValidatorDoc = {};
-    NamespaceStore.listen((ns) => {
-      if (ns && toNS(ns).collection) {
-        ValidationActions.fetchValidationRules();
-      }
-    });
+  },
+
+  onActivated(appRegistry) {
+    this.NamespaceStore = appRegistry.getStore('App.NamespaceStore');
+  },
+
+  onCollectionChanged(ns) {
+    if (ns && toNS(ns).collection) {
+      ValidationActions.fetchValidationRules();
+    }
   },
 
   /**
@@ -233,7 +235,7 @@ const ValidationStore = Reflux.createStore({
    * @param {Function} callback   function to call with (err, res) from server.
    */
   _fetchFromServer(callback) {
-    const ns = toNS(NamespaceStore.ns);
+    const ns = toNS(this.NamespaceStore.ns);
 
     if (this.state.serverVersion === '') {
       const serverVersion = app.instance.build.version;
@@ -472,7 +474,7 @@ const ValidationStore = Reflux.createStore({
     this.setState({
       editState: 'updating'
     });
-    app.dataService.updateCollection(NamespaceStore.ns, this.state.validatorDoc, (err) => {
+    app.dataService.updateCollection(this.NamespaceStore.ns, this.state.validatorDoc, (err) => {
       if (err) {
         this.setState({
           editState: 'error'
