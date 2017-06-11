@@ -12,13 +12,15 @@ class Editable extends React.Component {
       return (
         <div className="pull-right">
           <Button
-            bsStyle="borderless"
+            bsStyle="link"
             bsSize="xsmall"
+            className="btn-borderless"
             onClick={this.props.onCancel}>Cancel
           </Button>
           <Button
             bsSize="xsmall"
-            bsStyle="edit"
+            bsStyle="default"
+            className="btn-edit"
             onClick={this.props.onUpdate}>Update
           </Button>
         </div>
@@ -28,8 +30,9 @@ class Editable extends React.Component {
       return (
         <div className="pull-right">
           <Button
-            bsStyle="borderless"
+            bsStyle="link"
             bsSize="xsmall"
+            className="btn-borderless"
             onClick={this.props.onCancel}>Cancel
           </Button>
         </div>
