@@ -1,6 +1,7 @@
+import './setup_globals';
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
-import CompassDocumentValidationComponent from '../src/components/compass-document-validation';
+import CompassDocumentValidationComponent from '../src/components';
 import ConnectedCompassDocumentValidationComponent from '../src/components/';
 
 storiesOf('CompassDocumentValidationComponent', module)
