@@ -1,3 +1,5 @@
+// TODO: COMPASS-1366 Storybook works with the shared global Compass styles...
+// import '../styles/compass/index.less';
 import '../styles/index.less';
 
 import { configure, setAddon } from '@kadira/storybook';
