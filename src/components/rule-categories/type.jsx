@@ -8,8 +8,7 @@ const _ = require('lodash');
 
 class RuleCategoryType extends React.Component {
 
-  onTypeClicked(type, evt) {
-    evt.preventDefault();
+  onTypeClicked(type) {
     ValidationAction.setRuleParameters(this.props.id, {
       type: type.number
     });
@@ -21,9 +20,8 @@ class RuleCategoryType extends React.Component {
    * @return {Object}   the parameters for this rule.
    */
   static getInitialParameters() {
-    return {
-      type: 1
-    };
+    // Show the placeholder text
+    return {};
   }
 
   /**
