@@ -20,8 +20,9 @@ class RuleCategoryType extends React.Component {
    * @return {Object}   the parameters for this rule.
    */
   static getInitialParameters() {
-    // Show the placeholder text
-    return {};
+    return {
+      type: 1
+    };
   }
 
   /**
