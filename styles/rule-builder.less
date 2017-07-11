@@ -23,6 +23,11 @@
   .rule-category-form {
     display: flex;
 
+    .form-control {
+      // Work around bootstrap's hard-coded z-index madness
+      z-index: 0 !important;
+    }
+
     .form-group {
       .form-control:first-child {
         border-radius: 3px 0 0 3px;
@@ -32,7 +37,6 @@
     .rule-category-selector {
       margin-right: 6px;
       width: 150px;
-      z-index: 3;  // higher than bootstrap's .input-group .form-control
     }
   }
 
