@@ -1,8 +1,8 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const _ = require('lodash');
+const Select = require('react-select');
 const semver = require('semver');
-const { OptionSelector } = require('hadron-react-components');
+const _ = require('lodash');
 
 // const debug = require('debug')('mongodb-compass:bson-type-selector');
 
@@ -46,38 +46,11 @@ class BSONTypeSelector extends React.Component {
     if (canRemoveDecimal) {
       _.remove(BSON_TYPES, (type) => type.number === 19);
     }
-
-    this.state = {
-      type: null
-    };
   }
 
-  componentWillMount() {
-    if (this.props.typeNumber) {
-      this.setState({
-        type: BSONTypeSelector.getTypeByNumber(this.props.typeNumber)
-      });
-    } else if (this.props.typeAlias) {
-      this.setState({
-        type: BSONTypeSelector.getTypeByAlias(this.props.typeAlias)
-      });
-    } else if (this.props.typeName) {
-      this.setState({
-        type: BSONTypeSelector.getTypeByName(this.props.typeName)
-      });
-    }
-  }
-
-  onTypeClicked(typeAlias, evt) {
-    const type = BSONTypeSelector.getTypeByAlias(typeAlias);
-    this.setState({
-      type: type
-    });
-    this.props.onTypeClicked(type, evt);
-  }
-
-  static getTypeByName(typeName) {
-    return _.find(BSON_TYPES, 'name', typeName);
+  onTypeClicked(dropdownOption) {
+    const type = BSONTypeSelector.getTypeByNumber(dropdownOption.value);
+    this.props.onTypeClicked(type);
   }
 
   static getTypeByNumber(typeNumber) {
@@ -94,28 +67,32 @@ class BSONTypeSelector extends React.Component {
    * @returns {React.Component} The view component.
    */
   render() {
-    const selectedTypeName = _.get(this.state.type, 'alias', '');
-    const typeOptions = _.zipObject(_.map(BSON_TYPES, (type) => {
-      return [type.alias, type.name];
+    const dropdownOptions = BSON_TYPES.map((type) => ({
+      label: type.name,
+      value: type.number
     }));
 
     return (
-      <OptionSelector
-        id="bson-type-selector"
-        options={typeOptions}
-        label="BSON Type"
-        title={typeOptions[selectedTypeName]}
-        onSelect={this.onTypeClicked.bind(this)}
-        disabled={this.props.isDisabled}
-      />
+      <div className="bson-type-selector">
+        <label className="bson-type-selector-label">BSON Type</label>
+        <Select
+          autosize={false}
+          className="bson-type-selector-select"
+          clearable={false}
+          disabled={this.props.isDisabled}
+          onChange={this.onTypeClicked.bind(this)}
+          options={dropdownOptions}
+          placeholder="Select BSON type..."
+          searchable={false}
+          value={this.props.typeNumber}
+        />
+      </div>
     );
   }
 }
 
 BSONTypeSelector.propTypes = {
   typeNumber: PropTypes.number,
-  typeAlias: PropTypes.string,
-  typeName: PropTypes.string,
   onTypeClicked: PropTypes.func,
   serverVersion: PropTypes.string,
   isDisabled: PropTypes.bool

@@ -7,36 +7,42 @@
     width: 30%;
   }
   .rule-column {
-    width: 50%;
+    width: 60%;
   }
   .null-column {
-    width: 10%;
+    width: 5%;
   }
   .ctrl-column {
-    width: 10%;
+    width: 5%;
   }
 
-  .form-group { 
+  .form-group {
     margin-bottom: 0;
   }
 
   .rule-category-form {
+    display: flex;
+
+    .form-control {
+      // Work around bootstrap's hard-coded z-index madness
+      z-index: 0 !important;
+    }
+
     .form-group {
       .form-control:first-child {
         border-radius: 3px 0 0 3px;
-        margin-bottom: 3px;
       }
+    }
+
+    .rule-category-selector {
+      margin-right: 6px;
+      width: 150px;
     }
   }
 
   .form-control {
-    height: 28px;
-    line-height: 22px;
-  }
-
-  .dropdown-toggle {
-    height: 28px;
-    line-height: 28px;
+    height: 32px;
+    line-height: 24px;
   }
 
   .regex-dropdown {
@@ -72,6 +78,6 @@
   }
 }
 
-.table > tbody > tr > td { 
+.table > tbody > tr > td {
   vertical-align: middle;
 }

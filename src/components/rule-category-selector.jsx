@@ -3,7 +3,7 @@ const PropTypes = require('prop-types');
 const ValidationActions = require('../actions');
 const ruleCategories = require('./rule-categories');
 const { FormGroup } = require('react-bootstrap');
-const { OptionSelector } = require('hadron-react-components');
+const Select = require('react-select');
 const _ = require('lodash');
 
 // const debug = require('debug')('mongodb-compass:validation:rule-category');
@@ -34,13 +34,13 @@ class RuleCategorySelector extends React.Component {
     });
   }
 
-  onSelect(category) {
+  onChange(dropdownOption) {
     this.setState({
-      category: category,
+      category: dropdownOption.value,
       isValid: true,
       hasStartedValidating: true
     });
-    ValidationActions.setRuleCategory(this.props.id, category);
+    ValidationActions.setRuleCategory(this.props.id, dropdownOption.value);
   }
 
   validate(force) {
@@ -61,22 +61,25 @@ class RuleCategorySelector extends React.Component {
    * @returns {React.Component} The view component.
    */
   render() {
-    const dropdownOptions = _.zipObject(
-      _.keys(ruleCategories),
-      _.map(_.keys(ruleCategories), _.startCase)
-    );
+    const dropdownOptions = Object.keys(ruleCategories).map((category) => ({
+      label: _.startCase(category),
+      value: category
+    }));
 
     const validationState = this.state.isValid ? null : 'error';
 
     return (
       <FormGroup validationState={validationState}>
-        <OptionSelector
-          options={dropdownOptions}
-          id={this.props.id}
-          label=""
-          title={dropdownOptions[this.state.category] || 'Select rule category'}
-          onSelect={this.onSelect.bind(this)}
+        <Select
+          autosize={false}
+          className="rule-category-selector"
+          clearable={false}
           disabled={!this.props.isWritable}
+          onChange={this.onChange.bind(this)}
+          options={dropdownOptions}
+          placeholder="Select category..."
+          searchable={false}
+          value={this.state.category}
         />
       </FormGroup>
     );
