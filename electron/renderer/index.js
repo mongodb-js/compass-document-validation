@@ -33,7 +33,7 @@ const dataService = new DataService(CONNECTION);
 dataService.connect((error, ds) => {
   global.hadronApp.dataService = ds;
   global.hadronApp.appRegistry.onActivated();
-  global.hadronApp.appRegistry.onConnected(error, ds);
+  global.hadronApp.appRegistry.emit('data-service-connected', error, ds);
 
   ds.createCollection('document-validation.mycollection', {}, () => {
     CollectionStore.setCollection({ _id: 'document-validation.mycollection' });
