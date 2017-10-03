@@ -34,6 +34,7 @@ const ValidationStore = Reflux.createStore({
 
   onActivated(appRegistry) {
     this.NamespaceStore = appRegistry.getStore('App.NamespaceStore');
+    appRegistry.on('collection-changed', this.onCollectionChanged.bind(this));
   },
 
   onCollectionChanged(ns) {
