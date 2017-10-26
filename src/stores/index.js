@@ -35,6 +35,11 @@ const ValidationStore = Reflux.createStore({
   onActivated(appRegistry) {
     this.NamespaceStore = appRegistry.getStore('App.NamespaceStore');
     appRegistry.on('collection-changed', this.onCollectionChanged.bind(this));
+    appRegistry.on('data-service-connected', (error, dataService) => {
+      if (!error) {
+        this.dataService = dataService;
+      }
+    });
   },
 
   onCollectionChanged(ns) {
@@ -242,7 +247,7 @@ const ValidationStore = Reflux.createStore({
       const serverVersion = app.instance.build.version;
       this.setState({serverVersion: serverVersion});
     }
-    app.dataService.listCollections(ns.database, {name: ns.collection}, function(err, res) {
+    this.dataService.listCollections(ns.database, {name: ns.collection}, function(err, res) {
       if (err) {
         return callback(err);
       }
@@ -475,7 +480,7 @@ const ValidationStore = Reflux.createStore({
     this.setState({
       editState: 'updating'
     });
-    app.dataService.updateCollection(this.NamespaceStore.ns, this.state.validatorDoc, (err) => {
+    this.dataService.updateCollection(this.NamespaceStore.ns, this.state.validatorDoc, (err) => {
       if (err) {
         this.setState({
           editState: 'error'
