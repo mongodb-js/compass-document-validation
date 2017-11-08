@@ -6,7 +6,7 @@ const ValidationStore = require('./lib/stores');
  * A sample role for the component.
  */
 const ROLE = {
-  name: 'VALIDATION',
+  name: 'Validation',
   component: ValidationComponent,
   order: 5,
   minimumServerVersion: '3.2.0-rc0'
