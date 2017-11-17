@@ -122,6 +122,10 @@ class RuleCategoryRegex extends React.Component {
     return this.state.options.indexOf(option) > -1;
   }
 
+  isReadonlyDistro() {
+    return process.env.HADRON_READONLY === 'true';
+  }
+
   /**
    * Render ValidationHeader.
    *
@@ -137,7 +141,7 @@ class RuleCategoryRegex extends React.Component {
           placeholder="Enter regular expression"
           onChange={this.onChange.bind(this)}
           onBlur={this.onBlur.bind(this)}
-          disabled={!this.props.isWritable}
+          disabled={!this.props.isWritable || this.isReadonlyDistro()}
         />
         <DropdownButton id="regex-options"
           title="Options"
@@ -149,7 +153,7 @@ class RuleCategoryRegex extends React.Component {
               type="checkbox"
               value="i"
               checked={this.isOptionSelected('i')}
-              disabled={!this.props.isWritable}
+              disabled={!this.props.isWritable || this.isReadonlyDistro()}
               onChange={this.onOptionChange.bind(this)} />
             <b>i</b>
             {CASE_INSENSITIVE}
@@ -159,7 +163,7 @@ class RuleCategoryRegex extends React.Component {
               type="checkbox"
               value="m"
               checked={this.isOptionSelected('m')}
-              disabled={!this.props.isWritable}
+              disabled={!this.props.isWritable || this.isReadonlyDistro()}
               onChange={this.onOptionChange.bind(this)} />
             <b>m</b>
             {MULTILINE}
@@ -169,7 +173,7 @@ class RuleCategoryRegex extends React.Component {
               type="checkbox"
               value="x"
               checked={this.isOptionSelected('x')}
-              disabled={!this.props.isWritable}
+              disabled={!this.props.isWritable || this.isReadonlyDistro()}
               onChange={this.onOptionChange.bind(this)} />
             <b>x</b>
             {EXTENDED}
@@ -179,7 +183,7 @@ class RuleCategoryRegex extends React.Component {
               type="checkbox"
               value="s"
               checked={this.isOptionSelected('s')}
-              disabled={!this.props.isWritable}
+              disabled={!this.props.isWritable || this.isReadonlyDistro()}
               onChange={this.onOptionChange.bind(this)} />
             <b>s</b>
             {NEWLINE}

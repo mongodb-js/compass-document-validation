@@ -140,6 +140,10 @@ class RuleCategoryRange extends React.Component {
     return result;
   }
 
+  isReadonlyDistro() {
+    return process.env.HADRON_READONLY === 'true';
+  }
+
   /**
    * checks if the children values (just the numeric values, not operators)
    * are valid together. We consider them invalid, if both bounds are "none",
@@ -215,7 +219,7 @@ class RuleCategoryRange extends React.Component {
             ref="lower"
             boundIncluded={this.props.parameters.lowerBoundType === '$gte'}
             hidden={this.props.parameters.lowerBoundType === null}
-            disabled={!this.props.isWritable}
+            disabled={!this.props.isWritable || this.isReadonlyDistro()}
             value={this.props.parameters.lowerBoundValue || ''}
             onRangeInputBlur={this.onRangeInputBlur.bind(this, 'lower')}
             validationState={validationState}
@@ -225,7 +229,7 @@ class RuleCategoryRange extends React.Component {
             upperBound
             boundIncluded={this.props.parameters.upperBoundType === '$lte'}
             hidden={this.props.parameters.upperBoundType === null}
-            disabled={!this.props.isWritable}
+            disabled={!this.props.isWritable || this.isReadonlyDistro()}
             value={this.props.parameters.upperBoundValue || ''}
             onRangeInputBlur={this.onRangeInputBlur.bind(this, 'upper')}
             validationState={validationState}

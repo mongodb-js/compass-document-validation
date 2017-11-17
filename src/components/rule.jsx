@@ -33,6 +33,10 @@ class Rule extends React.Component {
     ValidationActions.setRuleNullable(this.props.id, !this.props.nullable);
   }
 
+  isReadonlyDistro() {
+    return process.env.HADRON_READONLY === 'true';
+  }
+
   /**
    * validates all children components and combines the result for its own
    * isValid state.
@@ -94,10 +98,10 @@ class Rule extends React.Component {
             className="nullable"
             type="checkbox"
             checked={this.props.nullable}
-            disabled={nullableDisabled || !this.props.isWritable}
+            disabled={nullableDisabled || !this.props.isWritable || this.isReadonlyDistro()}
             onChange={this.checkBoxClicked.bind(this)}/></td>
         <td>
-          {this.props.isWritable ? (<RuleDeleteButton
+          {this.props.isWritable && !this.isReadonlyDistro() ? (<RuleDeleteButton
             id={this.props.id}
             onClick={this.onDeleteClicked.bind(this)} />) : null}
         </td>

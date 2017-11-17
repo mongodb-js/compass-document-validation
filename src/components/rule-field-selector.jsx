@@ -54,6 +54,10 @@ class RuleFieldSelector extends React.Component {
     ValidationActions.setRuleField(this.props.id, this.state.value);
   }
 
+  isReadonlyDistro() {
+    return process.env.HADRON_READONLY === 'true';
+  }
+
   validate(force) {
     if (!force && !this.state.hasStartedValidating) {
       return true;
@@ -82,7 +86,7 @@ class RuleFieldSelector extends React.Component {
           value={this.state.value}
           onChange={this.onFieldChanged.bind(this)}
           onBlur={this.onBlur.bind(this)}
-          disabled={!this.props.isWritable}
+          disabled={!this.props.isWritable || this.isReadonlyDistro()}
         />
       </FormGroup>
     );

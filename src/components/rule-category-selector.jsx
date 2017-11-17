@@ -43,6 +43,10 @@ class RuleCategorySelector extends React.Component {
     ValidationActions.setRuleCategory(this.props.id, dropdownOption.value);
   }
 
+  isReadonlyDistro() {
+    return process.env.HADRON_READONLY === 'true';
+  }
+
   validate(force) {
     if (!force && !this.state.hasStartedValidating) {
       return true;
@@ -74,7 +78,7 @@ class RuleCategorySelector extends React.Component {
           autosize={false}
           className="rule-category-selector"
           clearable={false}
-          disabled={!this.props.isWritable}
+          disabled={!this.props.isWritable || this.isReadonlyDistro()}
           onChange={this.onChange.bind(this)}
           options={dropdownOptions}
           placeholder="Select category..."

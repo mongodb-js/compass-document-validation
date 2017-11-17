@@ -71,6 +71,10 @@ class RuleCategoryType extends React.Component {
     return false;
   }
 
+  isReadonlyDistro() {
+    return process.env.HADRON_READONLY === 'true';
+  }
+
   /**
    * Render TypeParameters component.
    *
@@ -83,7 +87,7 @@ class RuleCategoryType extends React.Component {
       <BSONTypeSelector
         typeNumber={typeNumber}
         serverVersion={this.props.serverVersion}
-        isDisabled={!this.props.isWritable}
+        isDisabled={!this.props.isWritable || this.isReadonlyDistro()}
         onTypeClicked={this.onTypeClicked.bind(this)} />
     );
   }
