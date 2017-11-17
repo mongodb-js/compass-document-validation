@@ -90,6 +90,10 @@ class RuleBuilder extends React.Component {
     return isValid;
   }
 
+  isReadonlyDistro() {
+    return process.env.HADRON_READONLY === 'true';
+  }
+
   renderRules() {
     return _.map(this.props.validationRules, (rule) => {
       return (<Rule ref={rule.id}
@@ -101,13 +105,60 @@ class RuleBuilder extends React.Component {
   }
 
   renderAddButton() {
+    if (process.env.HADRON_READONLY !== 'true') {
+      return (
+        <Button
+          bsStyle="primary"
+          bsSize="xsmall"
+          disabled={!this.props.isWritable}
+          onClick={this.onAddClick.bind(this)}>+ Add Rule
+        </Button>
+      );
+    }
+  }
+
+  renderActionSelector() {
+    const actionOptions = {warn: 'Warning', error: 'Error'};
+    if (this.isReadonlyDistro()) {
+      return (
+        <div>
+          <span className="validation-action-label">Validation Action:</span>
+          {actionOptions[this.props.validationAction]}
+        </div>
+      );
+    }
     return (
-      <Button
-        bsStyle="primary"
-        bsSize="xsmall"
+      <OptionSelector
+        id="validation-action-selector"
+        bsSize="xs"
+        options={actionOptions}
+        title={actionOptions[this.props.validationAction]}
+        label="Validation Action"
         disabled={!this.props.isWritable}
-        onClick={this.onAddClick.bind(this)}>+ Add Rule
-      </Button>);
+        onSelect={this.onActionSelect.bind(this)} />
+    );
+  }
+
+  renderLevelSelector() {
+    const levelOptions = {off: 'Off', moderate: 'Moderate', strict: 'Strict'};
+    if (this.isReadonlyDistro()) {
+      return (
+        <div>
+          <span className="validation-level-label">Validation Level:</span>
+          {levelOptions[this.props.validationLevel]}
+        </div>
+      );
+    }
+    return (
+      <OptionSelector
+        id="validation-level-selector"
+        bsSize="xs"
+        options={levelOptions}
+        title={levelOptions[this.props.validationLevel]}
+        label="Validation Level"
+        disabled={!this.props.isWritable}
+        onSelect={this.onLevelSelect.bind(this)} />
+    );
   }
 
   /**
@@ -135,8 +186,6 @@ class RuleBuilder extends React.Component {
       <Tooltip id={tooltipId} />
     );
     const tooltipText = 'This action is not available on a secondary node';
-    const actionOptions = {warn: 'Warning', error: 'Error'};
-    const levelOptions = {off: 'Off', moderate: 'Moderate', strict: 'Strict'};
 
     return (
       <Editable {...editableProps} >
@@ -150,24 +199,8 @@ class RuleBuilder extends React.Component {
             </Col>
             <Col lg={6} md={6} sm={6} xs={6}>
               <div className="pull-right">
-                <OptionSelector
-                  id="validation-action-selector"
-                  bsSize="xs"
-                  options={actionOptions}
-                  title={actionOptions[this.props.validationAction]}
-                  label="Validation Action"
-                  disabled={!this.props.isWritable}
-                  onSelect={this.onActionSelect.bind(this)}
-                />
-                <OptionSelector
-                  id="validation-level-selector"
-                  bsSize="xs"
-                  options={levelOptions}
-                  title={levelOptions[this.props.validationLevel]}
-                  label="Validation Level"
-                  disabled={!this.props.isWritable}
-                  onSelect={this.onLevelSelect.bind(this)}
-                />
+                {this.renderActionSelector()}
+                {this.renderLevelSelector()}
               </div>
             </Col>
           </Row>

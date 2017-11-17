@@ -8,6 +8,8 @@ const AppRegistry = require('hadron-app-registry');
 const DataService = require('mongodb-data-service');
 const Connection = require('mongodb-connection-model');
 
+process.env.HADRON_READONLY = 'true';
+
 const ValidationComponent = require('../../lib/components');
 const ValidationStore = require('../../lib/stores');
 const ValidationActions = require('../../lib/actions');
@@ -16,7 +18,7 @@ const WriteStateStore = require('./stores/write-state-store');
 
 const CONNECTION = new Connection({
   hostname: '127.0.0.1',
-  port: 27018,
+  port: 27017,
   ns: 'document-validation',
   mongodb_database_name: 'admin'
 });

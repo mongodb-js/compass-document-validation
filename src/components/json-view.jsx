@@ -94,6 +94,54 @@ class JSONView extends React.Component {
     }
   }
 
+  isReadonlyDistro() {
+    return process.env.HADRON_READONLY === 'true';
+  }
+
+  renderActionSelector() {
+    const actionOptions = {warn: 'Warning', error: 'Error'};
+    if (this.isReadonlyDistro()) {
+      return (
+        <div>
+          <span className="validation-action-label">Validation Action:</span>
+          {actionOptions[this.props.validationAction]}
+        </div>
+      );
+    }
+    return (
+      <OptionSelector
+        id="validation-action-selector"
+        bsSize="xs"
+        options={actionOptions}
+        title={actionOptions[this.props.validationAction]}
+        label="Validation Action"
+        disabled={!this.props.isWritable}
+        onSelect={this.onActionSelect.bind(this)} />
+    );
+  }
+
+  renderLevelSelector() {
+    const levelOptions = {off: 'Off', moderate: 'Moderate', strict: 'Strict'};
+    if (this.isReadonlyDistro()) {
+      return (
+        <div>
+          <span className="validation-level-label">Validation Level:</span>
+          {levelOptions[this.props.validationLevel]}
+        </div>
+      );
+    }
+    return (
+      <OptionSelector
+        id="validation-level-selector"
+        bsSize="xs"
+        options={levelOptions}
+        title={levelOptions[this.props.validationLevel]}
+        label="Validation Level"
+        disabled={!this.props.isWritable}
+        onSelect={this.onLevelSelect.bind(this)} />
+    );
+  }
+
   /**
    * Render status row component.
    *
@@ -112,8 +160,6 @@ class JSONView extends React.Component {
       editableProps.errorMessage = 'Input is not valid JSON.';
       delete editableProps.childName;
     }
-    const actionOptions = {warn: 'Warning', error: 'Error'};
-    const levelOptions = {off: 'Off', moderate: 'Moderate', strict: 'Strict'};
 
     return (
       <Editable {...editableProps} >
@@ -121,24 +167,8 @@ class JSONView extends React.Component {
           <Row className="header">
             <Col lg={12} md={12} sm={12} xs={12}>
               <div className="pull-right">
-                <OptionSelector
-                  id="validation-action-selector"
-                  bsSize="xs"
-                  options={actionOptions}
-                  title={actionOptions[this.props.validationAction]}
-                  label="Validation Action"
-                  onSelect={this.onActionSelect.bind(this)}
-                  disabled={!this.props.isWritable}
-                />
-                <OptionSelector
-                  id="validation-level-selector"
-                  bsSize="xs"
-                  options={levelOptions}
-                  title={levelOptions[this.props.validationLevel]}
-                  label="Validation Level"
-                  onSelect={this.onLevelSelect.bind(this)}
-                  disabled={!this.props.isWritable}
-                />
+                {this.renderActionSelector()}
+                {this.renderLevelSelector()}
               </div>
             </Col>
           </Row>
@@ -152,7 +182,7 @@ class JSONView extends React.Component {
                   value={this.state.input}
                   onChange={this.onInputChanged.bind(this)}
                   onBlur={this.onBlur.bind(this)}
-                  disabled={!this.props.isWritable}
+                  disabled={!this.props.isWritable || this.isReadonlyDistro()}
                 />
               </FormGroup>
             </Col>
