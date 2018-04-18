@@ -8,7 +8,7 @@ const ValidationStore = require('./lib/stores');
 const ROLE = {
   name: 'Validation',
   component: ValidationComponent,
-  order: 5,
+  order: 6,
   minimumServerVersion: '3.2.0-rc0'
 };
 
