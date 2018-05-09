@@ -1,7 +1,7 @@
 {
   "name": "@mongodb-js/compass-document-validation",
   "productName": "Compass Document Validation",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "apiVersion": "2.0.0",
   "description": "Compass Document Validation Plugin",
   "main": "index.js",
