@@ -1,6 +1,6 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const Select = require('react-select');
+const Select = require('react-select-plus').default;
 const semver = require('semver');
 const _ = require('lodash');
 

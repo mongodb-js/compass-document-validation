@@ -3,7 +3,7 @@ const PropTypes = require('prop-types');
 const ValidationActions = require('../actions');
 const ruleCategories = require('./rule-categories');
 const { FormGroup } = require('react-bootstrap');
-const Select = require('react-select');
+const Select = require('react-select-plus').default;
 const _ = require('lodash');
 
 // const debug = require('debug')('mongodb-compass:validation:rule-category');
@@ -83,8 +83,7 @@ class RuleCategorySelector extends React.Component {
           options={dropdownOptions}
           placeholder="Select category..."
           searchable={false}
-          value={this.state.category}
-        />
+          value={this.state.category} />
       </FormGroup>
     );
   }
