@@ -65,7 +65,7 @@
     "hadron-spectron": "^1.0.0",
     "hadron-type-checker": "^2.0.0",
     "highlight.js": "^9.11.0",
-    "jsdom": "^9.4.2",
+    "jsdom": "^16.2.2",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "lodash": "^3.10.1",
