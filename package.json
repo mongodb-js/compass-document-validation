@@ -60,7 +60,7 @@
     "hadron-app": "^3.0.1",
     "hadron-app-registry": "^7.0.0",
     "hadron-build": "^19.0.2",
-    "hadron-react-components": "^3.0.0",
+    "hadron-react-components": "^4.0.4",
     "hadron-reflux-store": "0.0.3",
     "hadron-spectron": "^1.0.0",
     "hadron-type-checker": "^2.0.0",
