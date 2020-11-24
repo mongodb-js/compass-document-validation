@@ -64,7 +64,7 @@
     "hadron-reflux-store": "0.0.3",
     "hadron-spectron": "^1.0.0",
     "hadron-type-checker": "^2.0.0",
-    "highlight.js": "^9.11.0",
+    "highlight.js": "^10.1.2",
     "jsdom": "^9.4.2",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
